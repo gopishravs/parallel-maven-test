@@ -22,7 +22,7 @@ void runTests() {
       node ('linux-docker-host-slave'){
         checkout scm
 
-        def mavenInstall = 'verify -Dcsi.disable.nightlybuild=false -Dskip.junit.tests=true -DMaven.test.failure.ignore=true'
+        def mavenInstall = 'install -Dcsi.disable.nightlybuild=false -Dskip.junit.tests=true -DMaven.test.failure.ignore=true'
 
         sh "mkdir -p target"
         sh "pwd"
