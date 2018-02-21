@@ -26,7 +26,7 @@ void runTests() {
 
         def mavenInstall = 'install -Dcsi.disable.nightlybuild=false -Dskip.junit.tests=true -DMaven.test.failure.ignore=true'
 
-        sh "rm -rf target"
+        sh "rm -rf target **/target"
         sh "mkdir -p target"
         sh "pwd"
         if (split.includes) {
