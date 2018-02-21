@@ -42,7 +42,7 @@ void runTests() {
         }
 
         /* Archive the test results */
-        junit '**/target/surefire-reports/TEST-*.xml'
+//        junit '**/target/surefire-reports/TEST-*.xml'
       }
     }
   }
