@@ -1,0 +1,52 @@
+pipeline {
+    agent {
+        dockerfile {
+            filename 'Dockerfile'
+            dir 'docker'
+            label 'jenkinsslave195'
+            args  '-v /data/jenkins/.m2:/data/jenkins/.m2:rw -v /data/jenkins/tools/:/data/jenkins/tools'
+        }
+    }
+
+    tools {
+        maven 'maven_ubuntu'
+        jdk 'openjdk_8_ubuntu'
+    }
+
+
+     stages {
+
+        stage("Maven Build"){
+            steps {
+                sh "\${M2_HOME}/bin/mvn -B clean deploy"
+            }
+        }
+
+    }
+
+     post {
+        always {
+            script {
+                if (! release) {
+                    junit '**/target/surefire-reports/*.xml'
+                }
+
+                if (currentBuild.currentResult == 'FAILUREx' || currentBuild.currentResult == 'UNSTABLEx')
+                {
+                    emailext subject: '$DEFAULT_SUBJECT',
+                        body: '$DEFAULT_CONTENT',
+                        recipientProviders: [
+                            [$class: 'CulpritsRecipientProvider'],
+                            [$class: 'DevelopersRecipientProvider'],
+                            [$class: 'RequesterRecipientProvider']
+                        ],
+                        replyTo: '$DEFAULT_REPLYTO',
+                        to: 'ahartuv@akamai.com'
+                }
+            }
+        }
+     }
+}
+
+
+

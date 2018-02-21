@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.akamai.csi.devops-test</groupId>
+  <artifactId>devops-test</artifactId>
+  <version>9.9.9-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <distributionManagement>
+    <repository>
+      <id>central</id>
+      <name>libs-release</name>
+      <url>${release.repo.url}</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <name>libs-snapshots</name>
+      <url>${snapshot.repo.url}</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <properties>
+    <release.repo.url>http://172.24.161.202:8081/artifactory/libs-release</release.repo.url>
+    <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+    <snapshot.repo.url>http://172.24.161.202:8081/artifactory/libs-snapshot</snapshot.repo.url>
+  </properties>
+
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>libs-release</name>
+      <url>${snapshot.repo.url}</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+      </snapshots>
+      <id>snapshots</id>
+      <name>libs-snapshot</name>
+      <url>${snapshot.repo.url}</url>
+    </repository>
+  </repositories>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>3.0</version>
+              <configuration>
+                  <source>1.8</source>
+                  <target>1.8</target>
+              </configuration>
+          </plugin>
+      </plugins>
+   <pluginManagement>
+    <plugins>
+      <plugin>
+        <artifactId>exec-maven-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <executions>
+            <execution><!-- print exclusions file -->
+                <id>print exclusions file</id>
+                <phase>verify</phase>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+                <configuration>
+                    <executable>bash</executable>
+                    <commandlineArgs>print_exclusions_mvn.sh</commandlineArgs>
+                </configuration>
+            </execution>
+        </executions>
+      </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+             <executions>
+                <execution>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                    <configuration>
+                        <tasks>
+                            <echo>Displaying value of 'user.dir' property</echo>
+                            <echo>[user.dir] ${user.dir}</echo>
+                        </tasks>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+   </pluginManagement>
+  </build>
+
+
+<modules>
+    <module>modules/module1</module>
+    <module>modules/module2</module>
+    <module>modules/module3</module>
+    <module>modules/module4</module>
+    <module>modules/module5</module>
+    <module>modules/module6</module>
+    <module>modules/module7</module>
+    <module>modules/module8</module>
+</modules>
+  <!--<profiles>-->
+        <!--<profile>-->
+            <!--<id>parallel-test-exclude</id>-->
+            <!--<build>-->
+                <!--<plugins>-->
+                     <!--<plugin>-->
+                        <!--<groupId>org.apache.maven.plugins</groupId>-->
+                        <!--<artifactId>maven-surefire-plugin</artifactId>-->
+                        <!--<configuration>-->
+                                <!--<excludesFile>${surefireExcludesFile}</excludesFile>-->
+                        <!--</configuration>-->
+                     <!--</plugin>-->
+               <!--</plugins>-->
+            <!--</build>-->
+        <!--</profile>-->
+        <!--<profile>-->
+            <!--<id>parallel-test-include</id>-->
+            <!--<build>-->
+                <!--<plugins>-->
+                     <!--<plugin>-->
+                        <!--<groupId>org.apache.maven.plugins</groupId>-->
+                        <!--<artifactId>maven-surefire-plugin</artifactId>-->
+                        <!--<configuration>-->
+                                <!--<includesFile>${surefireIncludesFile}</includesFile>-->
+                        <!--</configuration>-->
+                     <!--</plugin>-->
+               <!--</plugins>-->
+            <!--</build>-->
+        <!--</profile>-->
+  <!--< /profiles>-->
+</project>

@@ -1,0 +1,50 @@
+node ('linux'){
+  stage 'Test'
+  runTests()
+
+  /* Save Results. */
+  stage 'Results'
+
+  /* Archive the build artifacts */
+  archive includes: '**/target/surefire-reports/TEST-*.xml'
+}
+
+void runTests() {
+  def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: true
+
+  def testGroups = [:]
+
+  for (int i = 0; i < splits.size(); i++) {
+     def split = splits[i]
+
+     testGroups["split-${i}"] = {  // example, "split3"
+      node ('linux'){
+        checkout scm
+
+        def mavenInstall = 'clean verify -Dcsi.disable.nightlybuild=false -Dskip.junit.tests=true -DMaven.test.failure.ignore=true'
+
+        sh "mkdir -p target"
+        sh "pwd"
+        if (split.includes) {
+          writeFile file: "target/parallel-test-includes-${i}.txt", text: split.list.join("\n")
+          mavenInstall += " -Dsurefire.includesFile=target/parallel-test-includes-${i}.txt"
+        } else {
+          writeFile file: "target/parallel-test-excludes-${i}.txt", text: split.list.join("\n")
+          mavenInstall += " -Dsurefire.excludesFile=target/parallel-test-excludes-${i}.txt"
+        }
+
+
+        withEnv(["JAVA_HOME=${tool 'jdk-8u131' }", "PATH+MAVEN=${tool 'mvn339'}/bin:${env.JAVA_HOME}/bin"]) {        /* Call the Maven build with tests. */
+        sh "ls target/parallel-test* "
+        sh "cat target/parallel-test* "
+        sh "mvn ${git }"
+        }
+
+        /* Archive the test results */
+        junit '**/target/surefire-reports/TEST-*.xml'
+      }
+    }
+  }
+  parallel testGroups
+}
+
