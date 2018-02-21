@@ -44,7 +44,7 @@ void runTests() {
         junit '**/target/surefire-reports/TEST-*.xml'
         sh '''
            mkdir -p split-${index}
-           find . -name 'TEST-*.xml' -exec cp {} split-${index} \;
+           find . -name 'TEST-*.xml' -exec cp {} split-${index}
         '''
         archive includes: 'split-${index}/TEST-*.xml'
       }
