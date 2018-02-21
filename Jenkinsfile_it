@@ -25,13 +25,13 @@ void runTests() {
 
         sh "mkdir -p target"
         sh "pwd"
-        if (split.includes) {
+//        if (split.includes) {
           writeFile file: "target/parallel-test-includes-${index}.txt", text: split.list.join("\n")
           mavenInstall += " -Dsurefire.includesFile=target/parallel-test-includes-${index}.txt"
-        } else {
-          writeFile file: "target/parallel-test-excludes-${index}.txt", text: split.list.join("\n")
-          mavenInstall += " -Dsurefire.excludesFile=target/parallel-test-excludes-${index}.txt"
-        }
+//        } else {
+//          writeFile file: "target/parallel-test-excludes-${index}.txt", text: split.list.join("\n")
+//          mavenInstall += " -Dsurefire.excludesFile=target/parallel-test-excludes-${index}.txt"
+//        }
 
 
         withEnv(["JAVA_HOME=${tool 'jdk8u131' }", "PATH+MAVEN=${tool 'mvn350'}/bin:${env.JAVA_HOME}/bin"]) {        /* Call the Maven build with tests. */
