@@ -43,7 +43,7 @@ void runTests() {
         /* Archive the test results */
         junit '**/target/surefire-reports/TEST-*.xml'
         archive includes: '**/target/surefire-reports/TEST-*.xml'
-        archive includes: '**/target/parallel-test-*-${index}.txt'
+        archive includes: '**/parallel-test-*.txt'
       }
     }
   }
