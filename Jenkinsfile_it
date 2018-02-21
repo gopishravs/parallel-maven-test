@@ -6,8 +6,10 @@ node ('master'){
   stage 'Results'
 
   /* Archive the build artifacts */
-  junit '**/TEST-*.xml'
-  archive includes: '**/TEST-*.xml'
+    sh "pwd"
+    sh "ls -laR"
+//  junit '**/TEST-*.xml'
+//  archive includes: '**/TEST-*.xml'
 }
 
 void runTests() {
