@@ -6,7 +6,8 @@ node ('master'){
   stage 'Results'
 
   /* Archive the build artifacts */
-  archive includes: '**/target/surefire-reports/TEST-*.xml'
+  junit '**/TEST-*.xml'
+  archive includes: '**/TEST-*.xml'
 }
 
 void runTests() {
@@ -47,6 +48,5 @@ void runTests() {
     }
   }
   parallel testGroups
-  junit 'target/surefire-reports/TEST-*.xml'
 }
 
