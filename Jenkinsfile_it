@@ -46,7 +46,7 @@ void runTests() {
     }
   }
   parallel testGroups
-  junit 'target/surefire-reports/TEST-*.xml'
+  junit '**/target/surefire-reports/TEST-*.xml'
   archive includes: '**/target/surefire-reports/TEST-*.xml'
 }
 
