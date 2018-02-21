@@ -37,7 +37,7 @@ void runTests() {
 
         withEnv(["JAVA_HOME=${tool 'jdk8u131' }", "PATH+MAVEN=${tool 'mvn350'}/bin:${env.JAVA_HOME}/bin"]) {        /* Call the Maven build with tests. */
         sh "ls target/parallel-test* "
-        sh "cat target/parallel-test-${index}.txt "
+        sh "cat target/parallel-test-*-${index}.txt "
         sh "mvn ${mavenInstall}"
         }
 
