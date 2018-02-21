@@ -6,10 +6,8 @@ node ('master'){
   stage 'Results'
 
   /* Archive the build artifacts */
-    sh "pwd"
-    sh "ls -laR"
-//  junit '**/TEST-*.xml'
-//  archive includes: '**/TEST-*.xml'
+  junit '**/TEST-*.xml'
+  archive includes: '**/TEST-*.xml'
 }
 
 void runTests() {
@@ -22,7 +20,7 @@ void runTests() {
      def split = splits[index]
 
      testGroups["split-${index}"] = {  // example, "split3"
-      node ('linux-docker-host-slave'){
+      node ('master'){
         checkout scm
 
         def mavenInstall = 'install -Dcsi.disable.nightlybuild=false -Dskip.junit.tests=true -DMaven.test.failure.ignore=true'
