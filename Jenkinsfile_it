@@ -41,12 +41,11 @@ void runTests() {
         }
 
         /* Archive the test results */
-//        junit '**/target/surefire-reports/TEST-*.xml'
+        junit '**/target/surefire-reports/TEST-*.xml'
+        archive includes: '**/target/surefire-reports/TEST-*.xml'
       }
     }
   }
   parallel testGroups
-  junit '**/target/surefire-reports/TEST-*.xml'
-  archive includes: '**/target/surefire-reports/TEST-*.xml'
 }
 
