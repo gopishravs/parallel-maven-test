@@ -1,4 +1,4 @@
-node ('linux'){
+node ('master'){
   stage 'Test'
   runTests()
 
@@ -18,7 +18,7 @@ void runTests() {
      def split = splits[i]
 
      testGroups["split-${i}"] = {  // example, "split3"
-      node ('linux'){
+      node ('master'){
         checkout scm
 
         def mavenInstall = 'clean verify -Dcsi.disable.nightlybuild=false -Dskip.junit.tests=true -DMaven.test.failure.ignore=true'
