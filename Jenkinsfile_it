@@ -22,7 +22,7 @@ void runTests() {
       node ('linux-docker-host-slave'){
         checkout scm
 
-        def mavenInstall = 'install -Dcsi.disable.nightlybuild=false -Dskip.junit.tests=false -DMaven.test.failure.ignore=true'
+        def mavenInstall = 'install -Dcsi.disable.nightlybuild=false -Dskip.junit.tests=true -DMaven.test.failure.ignore=true'
 
         sh "mkdir -p target"
         sh "pwd"
@@ -30,14 +30,14 @@ void runTests() {
           writeFile file: "target/parallel-test-includes-${index}.txt", text: split.list.join("\n")
           mavenInstall += " -Dsurefire.includesFile=target/parallel-test-includes-${index}.txt"
         } else {
-          writeFile file: "target/parallel-test-excludes-${i}.txt", text: split.list.join("\n")
+          writeFile file: "target/parallel-test-excludes-${index}.txt", text: split.list.join("\n")
           mavenInstall += " -Dsurefire.excludesFile=target/parallel-test-excludes-${index}.txt"
         }
 
 
         withEnv(["JAVA_HOME=${tool 'jdk8u131' }", "PATH+MAVEN=${tool 'mvn350'}/bin:${env.JAVA_HOME}/bin"]) {        /* Call the Maven build with tests. */
         sh "ls target/parallel-test* "
-        sh "cat target/parallel-test* "
+        sh "cat target/parallel-test-{index} "
         sh "mvn ${mavenInstall}"
         }
 
