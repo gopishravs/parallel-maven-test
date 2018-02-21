@@ -1,9 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        dockerfile {
+            filename 'Dockerfile'
+            dir 'docker'
+            args  '-v /data/jenkins/.m2:/data/jenkins/.m2:rw -v /data/jenkins/tools/:/data/jenkins/tools'
+        }
+    }
 
     tools {
-        maven 'maven_ubuntu'
-        jdk 'openjdk_8_ubuntu'
+        maven 'mvn350'
+        jdk 'jdk8u131'
     }
 
 
