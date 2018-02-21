@@ -15,9 +15,10 @@ void runTests() {
   def testGroups = [:]
 
   for (int i = 0; i < splits.size(); i++) {
-     def split = splits[i]
+     def index=i
+     def split = splits[index]
 
-     testGroups["split-${i}"] = {  // example, "split3"
+     testGroups["split-${index}"] = {  // example, "split3"
       node ('linux-docker-host-slave'){
         checkout scm
 
@@ -26,11 +27,11 @@ void runTests() {
         sh "mkdir -p target"
         sh "pwd"
         if (split.includes) {
-          writeFile file: "target/parallel-test-includes-${i}.txt", text: split.list.join("\n")
-          mavenInstall += " -Dsurefire.includesFile=target/parallel-test-includes-${i}.txt"
+          writeFile file: "target/parallel-test-includes-${index}.txt", text: split.list.join("\n")
+          mavenInstall += " -Dsurefire.includesFile=target/parallel-test-includes-${index}.txt"
         } else {
           writeFile file: "target/parallel-test-excludes-${i}.txt", text: split.list.join("\n")
-          mavenInstall += " -Dsurefire.excludesFile=target/parallel-test-excludes-${i}.txt"
+          mavenInstall += " -Dsurefire.excludesFile=target/parallel-test-excludes-${index}.txt"
         }
 
 
