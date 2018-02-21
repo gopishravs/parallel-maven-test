@@ -6,8 +6,9 @@ node ('master'){
   stage 'Results'
 
   /* Archive the build artifacts */
-  junit '**/TEST-*.xml'
-  archive includes: '**/TEST-*.xml'
+    archive .
+//  junit '**/TEST-*.xml'
+//  archive includes: '**/TEST-*.xml'
 }
 
 void runTests() {
