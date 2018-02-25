@@ -19,13 +19,12 @@ pipeline
                 {
                     def testImage = docker.build("test-image", "docker")
                     def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: true
-                    def size = splits.size()
-                    echo "*** size=${size}"
 
                     def testGroups = [:]
 
 
-                    for (int i = 0; i < splits.size(); i++) {
+                    for (int i = 0; i < splits.size(); i++)
+                    {
                         def index=i
                         def split = splits[index]
                         echo "*** index=${index}"
@@ -63,6 +62,8 @@ pipeline
                     }
                     parallel testGroups
                     junit '**/target/surefire-reports/TEST-*.xml'
+                    archive includes: '**/target/surefire-reports/TEST-*.xml'
+                    archive includes: '**/parallel-test-*.txt'
                 }
             }
         }
