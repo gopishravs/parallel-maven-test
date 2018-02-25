@@ -60,14 +60,25 @@ pipeline
                             }
                         }
                     }
-                    parallel testGroups
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    archive includes: '**/target/surefire-reports/TEST-*.xml'
-                    archive includes: '**/parallel-test-*.txt'
+                    try
+                    {
+                        parallel testGroups
+                    }
+                    catch(error)
+                    {
+                    }
                 }
             }
         }
-
+    }
+    post
+    {
+        always
+        {
+            junit '**/target/surefire-reports/TEST-*.xml'
+            archive includes: '**/target/surefire-reports/TEST-*.xml'
+            archive includes: '**/parallel-test-*.txt'
+        }
     }
 }
 
