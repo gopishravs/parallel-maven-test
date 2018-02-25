@@ -31,7 +31,7 @@ pipeline
 
                         testGroups["split-${index}"] =
                         {  // example, "split3"
-                            testImage.inside("")
+                            testImage.inside("-v /data/jenkins/.m2:/data/jenkins/.m2:rw -v /data/jenkins/tools/:/data/jenkins/tools")
                             {
                                 checkout scm
 
