@@ -33,7 +33,7 @@ pipeline
                         {  // example, "split3"
                             testImage.inside("-v /data/jenkins/.m2:/data/jenkins/.m2:rw -v /data/jenkins/tools/:/data/jenkins/tools")
                             {
-                                sh "which java"
+                                sh "/data/jenkins_home/jenkins_slave/tools/hudson.model.JDK/jdk8u131/bin/java -version"
                                 checkout scm
 
                                 def mavenInstall = 'install -Dcsi.disable.nightlybuild=false -Dskip.junit.tests=true -DMaven.test.failure.ignore=true'
