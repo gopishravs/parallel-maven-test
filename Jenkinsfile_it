@@ -1,9 +1,6 @@
 node ('master'){
-  stage 'Docker build'
-
-  def customImage = docker.build("testsRun","docker")
-
   stage 'Test'
+  def customImage = docker.build("testsRun","docker")
   runTests()
 
   /* Save Results. */
