@@ -59,6 +59,7 @@ pipeline
                         }
                     }
                     parallel testGroups
+                    junit '**/target/surefire-reports/TEST-*.xml'
                 }
             }
         }
