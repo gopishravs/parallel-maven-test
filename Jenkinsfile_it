@@ -1,6 +1,5 @@
 node ('master'){
   stage 'Test'
-  def customImage = docker.build("testsRun","docker")
   runTests()
 
   /* Save Results. */
@@ -21,8 +20,8 @@ void runTests() {
      echo "*** split.includes=${split.includes}"
      echo "*** split.list=${split.list}"
 
+     def customImage = docker.build("testsRun","docker")
      customImage.inside("") {
-//      node ('linux-docker-host-slave'){
         checkout scm
 
         def mavenInstall = 'install -Dcsi.disable.nightlybuild=false -Dskip.junit.tests=true -DMaven.test.failure.ignore=true'
