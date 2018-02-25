@@ -19,8 +19,11 @@ pipeline
                 {
                     def testImage = docker.build("test-image", "docker")
                     def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: true
+                    def size = splits.size()
+                    echo "*** size=${size}"
 
                     def testGroups = [:]
+
 
                     for (int i = 0; i < splits.size(); i++) {
                         def index=i
