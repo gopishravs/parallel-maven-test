@@ -11,22 +11,13 @@ pipeline
     }
     stages
     {
-        stage("Image build")
-        {
-            steps
-            {
-                script
-                {
-                    def testImage = docker.build("test-image", "docker")
-                }
-            }
-        }
         stage("run tests")
         {
             steps
             {
                 script
                 {
+                    def testImage = docker.build("test-image", "docker")
                     def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: true
 
                     def testGroups = [:]
