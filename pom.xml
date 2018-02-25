@@ -19,31 +19,31 @@
     </snapshotRepository>
   </distributionManagement>
 
-  <properties>
-    <release.repo.url>http://172.24.161.202:8081/artifactory/libs-release</release.repo.url>
-    <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-    <snapshot.repo.url>http://172.24.161.202:8081/artifactory/libs-snapshot</snapshot.repo.url>
-  </properties>
+  <!--<properties>-->
+    <!--<release.repo.url>http://172.24.161.202:8081/artifactory/libs-release</release.repo.url>-->
+    <!--<maven-release-plugin.version>2.5.3</maven-release-plugin.version>-->
+    <!--<snapshot.repo.url>http://172.24.161.202:8081/artifactory/libs-snapshot</snapshot.repo.url>-->
+  <!--</properties>-->
 
-  <repositories>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>central</id>
-      <name>libs-release</name>
-      <url>${snapshot.repo.url}</url>
-    </repository>
-    <repository>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
-      </snapshots>
-      <id>snapshots</id>
-      <name>libs-snapshot</name>
-      <url>${snapshot.repo.url}</url>
-    </repository>
-  </repositories>
+  <!--<repositories>-->
+    <!--<repository>-->
+      <!--<snapshots>-->
+        <!--<enabled>false</enabled>-->
+      <!--</snapshots>-->
+      <!--<id>central</id>-->
+      <!--<name>libs-release</name>-->
+      <!--<url>${snapshot.repo.url}</url>-->
+    <!--</repository>-->
+    <!--<repository>-->
+      <!--<snapshots>-->
+        <!--<enabled>true</enabled>-->
+        <!--<updatePolicy>daily</updatePolicy>-->
+      <!--</snapshots>-->
+      <!--<id>snapshots</id>-->
+      <!--<name>libs-snapshot</name>-->
+      <!--<url>${snapshot.repo.url}</url>-->
+    <!--</repository>-->
+  <!--</repositories>-->
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
