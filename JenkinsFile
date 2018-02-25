@@ -1,5 +1,12 @@
 pipeline {
     agent any
+    {
+        dockerfile {
+            filename 'Dockerfile'
+            dir 'docker'
+            args  '-v /data/jenkins/.m2:/data/jenkins/.m2:rw -v /data/jenkins/tools/:/data/jenkins/tools'
+        }
+    }
 
     tools {
         maven 'mvn350'
